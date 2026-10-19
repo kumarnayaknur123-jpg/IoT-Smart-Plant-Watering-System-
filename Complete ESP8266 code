@@ -1,0 +1,83 @@
+
+/*
+  Project: IoT Smart Plant Watering System
+  Controller: ESP8266 NodeMCU
+  Sensor: Soil Moisture Sensor (Analog Output)
+  Actuator: Relay Module + DC Water Pump
+
+  IMPORTANT:
+  Calibrate the threshold for your actual sensor.
+  Test with the pump disconnected first.
+*/
+
+#include <Arduino.h>
+
+// Pin connections (change if your wiring differs)
+const int SOIL_SENSOR_PIN = A0;
+const int RELAY_PIN = D1;
+
+// Most relay modules are active LOW.
+// Set false if your relay activates with HIGH.
+const bool RELAY_ACTIVE_LOW = true;
+
+// Example threshold only; calibrate using Serial Monitor.
+const int MOISTURE_THRESHOLD = 650;
+
+// Set true if dry soil gives a higher reading.
+// Set false if dry soil gives a lower reading.
+const bool DRY_READING_IS_HIGH = true;
+
+const unsigned long READ_INTERVAL = 1000;
+
+unsigned long previousMillis = 0;
+
+void controlPump(bool pumpOn) {
+  if (RELAY_ACTIVE_LOW) {
+    digitalWrite(RELAY_PIN, pumpOn ? LOW : HIGH);
+  } else {
+    digitalWrite(RELAY_PIN, pumpOn ? HIGH : LOW);
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(RELAY_PIN, OUTPUT);
+
+  // Keep the pump OFF during startup.
+  controlPump(false);
+
+  Serial.println();
+  Serial.println("Automatic Plant Watering System");
+  Serial.println("Check sensor readings before use.");
+}
+
+void loop() {
+  unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= READ_INTERVAL) {
+    previousMillis = currentMillis;
+
+    int moistureValue = analogRead(SOIL_SENSOR_PIN);
+
+    bool soilIsDry;
+
+    if (DRY_READING_IS_HIGH) {
+      soilIsDry = moistureValue > MOISTURE_THRESHOLD;
+    } else {
+      soilIsDry = moistureValue < MOISTURE_THRESHOLD;
+    }
+
+    // Pump ON when dry, OFF when moist.
+    controlPump(soilIsDry);
+
+    Serial.print("Soil sensor reading: ");
+    Serial.print(moistureValue);
+
+    Serial.print(" | Soil status: ");
+    Serial.print(soilIsDry ? "DRY" : "MOIST");
+
+    Serial.print(" | Water pump: ");
+    Serial.println(soilIsDry ? "ON" : "OFF");
+  }
+}

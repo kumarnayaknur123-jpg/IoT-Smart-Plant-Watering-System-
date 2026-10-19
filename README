@@ -1,0 +1,108 @@
+# IoT-Based Soil Moisture Monitoring and Automatic Plant Watering System
+
+## Project Overview
+
+This project is an automatic plant watering system designed to monitor soil moisture and water a plant whenever the soil becomes dry.
+
+The system uses an ESP8266 microcontroller, a soil moisture sensor, a relay module, and a mini water pump. Based on the moisture sensor reading, the controller switches the pump ON or OFF to help maintain suitable soil moisture.
+
+## Objectives
+
+- Monitor soil moisture using a sensor.
+- Automatically water plants when the soil becomes dry.
+- Reduce unnecessary water consumption.
+- Minimize manual plant watering.
+- Demonstrate a simple embedded systems and IoT application.
+
+## Components Required
+
+1. ESP8266 NodeMCU development board
+2. Soil moisture sensor module
+3. Relay module
+4. Mini DC water pump
+5. Water container and connecting tube
+6. Battery or suitable power supply
+7. Breadboard and jumper wires
+8. Plant pot and soil
+
+## Block Diagram
+
+Soil Moisture Sensor → ESP8266 Controller → Relay Module → Water Pump → Plant
+
+The sensor provides soil moisture readings to the ESP8266. The controller uses a programmed threshold to determine whether watering is required.
+
+## Working Principle
+
+1. The soil moisture sensor measures the moisture level in the soil.
+2. The ESP8266 reads the sensor output.
+3. The controller compares the reading with a predefined threshold.
+4. If the soil is dry, the controller activates the relay.
+5. The relay switches the water pump ON.
+6. Water flows through the tube to the plant.
+7. When sufficient moisture is detected, the controller switches the pump OFF.
+
+*Note: The exact threshold and sensor reading direction depend on the sensor module and calibration.*
+
+## Software and Tools
+
+- Arduino IDE
+- ESP8266 board support package
+- Embedded C/C++ (Arduino programming)
+- USB cable for programming and debugging
+
+## Applications
+
+- Home gardening
+- Indoor plants
+- Small-scale agriculture
+- Greenhouse irrigation
+- Water-saving irrigation demonstrations
+
+## Advantages
+
+- Automatic watering
+- Reduced manual effort
+- Simple and affordable hardware
+- Easy to modify for additional features
+- Useful for learning microcontrollers and sensor interfacing
+
+## Future Improvements
+
+- Wi-Fi-based remote monitoring
+- Mobile notifications
+- Real-time soil moisture dashboard
+- Water-level monitoring
+- Data logging and watering history
+- Solar-powered operation
+
+## Repository Structure
+
+```text
+iot-smart-plant-watering-system/
+├── README.md
+├── src/
+│   └── automatic_watering.ino
+├── images/
+│   ├── project-setup.jpg
+│   └── circuit-diagram.png
+├── docs/
+│   └── circuit-connections.md
+├── .gitignore
+└── LICENSE
+```
+
+## Project Demonstration
+
+Add photographs of the completed hardware, a circuit diagram, and a video or GIF demonstrating automatic watering.
+
+## Conclusion
+
+The project demonstrates an automatic irrigation system using a soil moisture sensor and an ESP8266 controller. By activating a water pump according to soil conditions, the system provides a practical demonstration of embedded control and smart irrigation.
+
+## Author
+
+Add your name, department, institution, and team members here.
+
+## Disclaimer
+
+Verify the circuit connections, sensor calibration, relay logic, and power requirements before operating the hardware. Wi-Fi monitoring features should only be described as implemented if they are actually included in the source code.
